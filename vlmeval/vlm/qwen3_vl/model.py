@@ -147,6 +147,7 @@ class Qwen3VLChat(Qwen3VLPromptMixin, BaseModel):
                 enable_expert_parallel=enable_expert_parallel,
                 seed=0,
                 gpu_memory_utilization=kwargs.get("gpu_utils", 0.9),
+                max_model_len=kwargs.get("max_model_len", 32768),
                 trust_remote_code=True,
             )
         else:

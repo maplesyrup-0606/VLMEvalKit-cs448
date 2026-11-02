@@ -1460,6 +1460,7 @@ qwen3vl_series = {
         top_p=0.8,
         top_k=20
     ),
+    # FROM HERE
     "Qwen3-VL-4B-Instruct": partial(
         vlm.Qwen3VLChat,
         model_path="Qwen/Qwen3-VL-4B-Instruct",
@@ -1472,6 +1473,213 @@ qwen3vl_series = {
         top_p=0.8,
         top_k=20
     ),
+    "Qwen3-VL-4B-Instruct-llm-e2": partial(
+          vlm.Qwen3VLChat,
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/llm-e324",
+          use_custom_prompt=False,
+          use_vllm=True,
+          temperature=0.7,
+          max_new_tokens=16384,
+          repetition_penalty=1.0,
+          presence_penalty=1.5,
+          top_p=0.8,
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-both-e2": partial(
+          vlm.Qwen3VLChat,
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/both-e324",
+          use_custom_prompt=False,
+          use_vllm=True,
+          temperature=0.7,
+          max_new_tokens=16384,
+          repetition_penalty=1.0,
+          presence_penalty=1.5,
+          top_p=0.8,
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-v2-both-e3": partial(
+          vlm.Qwen3VLChat,
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v2-both-e567",
+          use_custom_prompt=False,
+          use_vllm=True,
+          temperature=0.7,
+          max_new_tokens=16384,
+          repetition_penalty=1.0,
+          presence_penalty=1.5,
+          top_p=0.8,
+          top_k=20
+    ),
+    # ==============
+    "Qwen3-VL-4B-Instruct-t0": partial(
+          vlm.Qwen3VLChat, 
+          model_path="Qwen/Qwen3-VL-4B-Instruct",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=0.0, 
+          top_p=1.0, 
+          top_k=-1
+    ),
+    "Qwen3-VL-4B-Instruct-v3-continuity-llm-e3": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-continuity-llm-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=0.0, 
+          top_p=1.0, 
+          top_k=-1
+    ),
+    "Qwen3-VL-4B-Instruct-v3-continuity-both-e3": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-continuity-both-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=0.0, 
+          top_p=1.0, 
+          top_k=-1
+    ),
+    "Qwen3-VL-4B-Instruct-v3-all-llm-e3": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-all-llm-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=0.0, 
+          top_p=1.0, 
+          top_k=-1
+    ),
+    "Qwen3-VL-4B-Instruct-v3-all-both-e3": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-all-both-e3",
+          use_custom_prompt=False, 
+          use_vllm=True,
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=0.0, 
+          top_p=1.0, 
+          top_k=-1
+    ),
+    "Qwen3-VL-4B-Instruct-t0p": partial(
+          vlm.Qwen3VLChat, 
+          model_path="Qwen/Qwen3-VL-4B-Instruct",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=1.5, 
+          top_p=0.8, 
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-v3-continuity-llm-e3-t0p": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-continuity-llm-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=1.5, 
+          top_p=0.8, 
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-v3-continuity-both-e3-t0p": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-continuity-both-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=1.5, 
+          top_p=0.8, 
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-v3-all-llm-e3-t0p": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-all-llm-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=1.5, 
+          top_p=0.8, 
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-v3-all-both-e3-t0p": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-all-both-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.0, 
+          repetition_penalty=1.0, 
+          presence_penalty=1.5, 
+          top_p=0.8, 
+          top_k=20
+    ),
+    # ================ with temp v3 variants
+    "Qwen3-VL-4B-Instruct-v3-continuity-llm-e3-t07": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-continuity-llm-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          temperature=0.7, 
+          max_new_tokens=16384, 
+          repetition_penalty=1.0,
+          presence_penalty=1.5,
+          top_p=0.8,
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-v3-continuity-both-e3-t07": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-continuity-both-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.7, 
+          repetition_penalty=1.0, 
+          presence_penalty=1.5, 
+          top_p=0.8, 
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-v3-all-llm-e3-t07": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-all-llm-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.7, 
+          repetition_penalty=1.0, 
+          presence_penalty=1.5, 
+          top_p=0.8, 
+          top_k=20
+    ),
+    "Qwen3-VL-4B-Instruct-v3-all-both-e3-t07": partial(
+          vlm.Qwen3VLChat, 
+          model_path="/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-all-both-e3",
+          use_custom_prompt=False, 
+          use_vllm=True, 
+          max_new_tokens=16384,
+          temperature=0.7, 
+          repetition_penalty=1.0, 
+          presence_penalty=1.5, 
+          top_p=0.8, 
+          top_k=20
+    ),
+    # ================
     "Qwen3-VL-2B-Instruct": partial(
         vlm.Qwen3VLChat,
         model_path="Qwen/Qwen3-VL-2B-Instruct",

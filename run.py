@@ -20,8 +20,13 @@ from tabulate import tabulate
 def get_gpu_list():
     CUDA_VISIBLE_DEVICES = os.environ.get('CUDA_VISIBLE_DEVICES', '')
     if CUDA_VISIBLE_DEVICES != '':
-        gpu_list = [int(x) for x in CUDA_VISIBLE_DEVICES.split(',')]
-        return gpu_list
+        #gpu_list = [int(x) for x in CUDA_VISIBLE_DEVICES.split(',')]
+        #return gpu_list
+        devices = CUDA_VISIBLE_DEVICES.split(',')
+        try:
+            return [int(x) for x in devices]
+        except ValueError:
+            return list(range(len(devices)))
     try:
         ps = subprocess.Popen(('nvidia-smi', '--list-gpus'), stdout=subprocess.PIPE)
         output = subprocess.check_output(('wc', '-l'), stdin=ps.stdout)

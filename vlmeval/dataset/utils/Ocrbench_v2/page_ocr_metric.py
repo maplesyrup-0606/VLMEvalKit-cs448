@@ -5,6 +5,9 @@ import nltk
 from nltk.metrics import f_measure, precision, recall
 from nltk.translate import meteor_score
 
+import importlib
+_nltk_dist = importlib.import_module('nltk.metrics.distance')
+_nltk_dist.MAX_DISTANCE_INPUT_LEN = 10**6
 
 def contain_chinese_string(text):
     chinese_pattern = re.compile(r'[\u4e00-\u9fa5]')
