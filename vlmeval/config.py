@@ -1460,7 +1460,13 @@ qwen3vl_series = {
         top_p=0.8,
         top_k=20
     ),
-    # FROM HERE
+    # ===================== ELVIS fine-tuning eval: local changes START =====================
+    # Added for the ELVIS project (not in upstream VLMEvalKit). Models: base Qwen3-VL-4B-Instruct,
+    # v1/v2 checkpoints, merged v3 LoRA models (results/merged/v3-*). Decoding sets per key suffix:
+    #   (none) T0.7 + presence_penalty 1.5 (Qwen's recommended) | -t0 greedy, no penalty
+    #   -t0p greedy + penalty 1.5 | -t07 T0.7 + penalty 1.5
+    # All of these use use_custom_prompt=False (generic dataset MCQ prompt).
+    # The -cp variants (Qwen's own MCQ prompt) are added further down, before `supported_VLM = {}`.
     "Qwen3-VL-4B-Instruct": partial(
         vlm.Qwen3VLChat,
         model_path="Qwen/Qwen3-VL-4B-Instruct",
@@ -1679,7 +1685,7 @@ qwen3vl_series = {
           top_p=0.8, 
           top_k=20
     ),
-    # ================
+    # ===================== ELVIS fine-tuning eval: local changes END =======================
     "Qwen3-VL-2B-Instruct": partial(
         vlm.Qwen3VLChat,
         model_path="Qwen/Qwen3-VL-2B-Instruct",
@@ -2828,7 +2834,22 @@ interns1_groups = [
 interns1_series = {}
 for group in interns1_groups:
     interns1_series.update(group)
-    
+
+# ===================== ELVIS fine-tuning eval: local changes START (-cp) ================
+# Same settings as the -t0p / -t07 entries above, but with Qwen's own MCQ prompt
+# (use_custom_prompt=True -> "Answer with the option letter only.", vlm/qwen3_vl/prompt.py).
+# Creates 10 keys: Qwen3-VL-4B-Instruct[-v3-<m>-e3]-{t0p,t07}-cp
+_ELVIS_CP = {"": "Qwen/Qwen3-VL-4B-Instruct",
+             **{f"-v3-{m}-e3": f"/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-{m}-e3"
+                for m in ["continuity-llm", "continuity-both", "all-llm", "all-both"]}}
+for _sfx, _path in _ELVIS_CP.items():
+    for _tag, _temp in [("t0p-cp", 0.0), ("t07-cp", 0.7)]:
+        qwen3vl_series[f"Qwen3-VL-4B-Instruct{_sfx}-{_tag}"] = partial(
+            vlm.Qwen3VLChat, model_path=_path, use_custom_prompt=True, use_vllm=True,
+            max_new_tokens=16384, temperature=_temp, repetition_penalty=1.0,
+            presence_penalty=1.5, top_p=0.8, top_k=20)
+# ===================== ELVIS fine-tuning eval: local changes END (-cp) ==================
+
 supported_VLM = {}
 
 model_groups = [
