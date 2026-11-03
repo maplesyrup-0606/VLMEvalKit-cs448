@@ -2836,9 +2836,9 @@ for group in interns1_groups:
     interns1_series.update(group)
 
 # ===================== ELVIS fine-tuning eval: local changes START (-cp) ================
-# Same settings as the -t0p / -t07 entries above, but with Qwen's own MCQ prompt
+# Like the -t0p / -t07 entries above, but with Qwen's own MCQ prompt and a 200-token cap
 # (use_custom_prompt=True -> "Answer with the option letter only.", vlm/qwen3_vl/prompt.py).
-# Creates 10 keys: Qwen3-VL-4B-Instruct[-v3-<m>-e3]-{t0p,t07}-cp
+# Creates 10 keys: Qwen3-VL-4B-Instruct[-v3-<m>-e3]-{t0p,t07}-cp. max_new_tokens=200 (letter-only answers).
 _ELVIS_CP = {"": "Qwen/Qwen3-VL-4B-Instruct",
              **{f"-v3-{m}-e3": f"/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-{m}-e3"
                 for m in ["continuity-llm", "continuity-both", "all-llm", "all-both"]}}
@@ -2846,7 +2846,7 @@ for _sfx, _path in _ELVIS_CP.items():
     for _tag, _temp in [("t0p-cp", 0.0), ("t07-cp", 0.7)]:
         qwen3vl_series[f"Qwen3-VL-4B-Instruct{_sfx}-{_tag}"] = partial(
             vlm.Qwen3VLChat, model_path=_path, use_custom_prompt=True, use_vllm=True,
-            max_new_tokens=16384, temperature=_temp, repetition_penalty=1.0,
+            max_new_tokens=200, temperature=_temp, repetition_penalty=1.0,
             presence_penalty=1.5, top_p=0.8, top_k=20)
 # ===================== ELVIS fine-tuning eval: local changes END (-cp) ==================
 
