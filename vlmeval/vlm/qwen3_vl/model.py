@@ -145,7 +145,7 @@ class Qwen3VLChat(Qwen3VLPromptMixin, BaseModel):
                 limit_mm_per_prompt=limit_mm,
                 tensor_parallel_size=tp_size,
                 enable_expert_parallel=enable_expert_parallel,
-                seed=0,
+                seed=kwargs.get("seed", 0),  # ELVIS: configurable sampling seed (was fixed at 0)
                 gpu_memory_utilization=kwargs.get("gpu_utils", 0.9),
                 max_model_len=kwargs.get("max_model_len", 32768),
                 trust_remote_code=True,
