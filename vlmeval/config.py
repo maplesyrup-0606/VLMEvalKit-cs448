@@ -2838,11 +2838,12 @@ for group in interns1_groups:
 # ===================== ELVIS fine-tuning eval: local changes START (-cp) ================
 # Like the -t0p / -t07 entries above, but with Qwen's own MCQ prompt and a 200-token cap
 # (use_custom_prompt=True -> "Answer with the option letter only.", vlm/qwen3_vl/prompt.py).
-# Creates 10 keys: Qwen3-VL-4B-Instruct[-v3-<m>-e3]-{t0p,t07}-cp. max_new_tokens=200 (letter-only answers),
-# plus 50 seed keys ...-t07-cp-s0..s9 (T0.7 with vLLM seed 0..9).
+# Creates keys Qwen3-VL-4B-Instruct[-v3-<m>-e3]-{t0p,t07}-cp for base + 8 v3 models. max_new_tokens=200 (letter-only answers),
+# plus 10 seed keys per model ...-t07-cp-s0..s9 (T0.7 with vLLM seed 0..9).
 _ELVIS_CP = {"": "Qwen/Qwen3-VL-4B-Instruct",
              **{f"-v3-{m}-e3": f"/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-{m}-e3"
-                for m in ["continuity-llm", "continuity-both", "all-llm", "all-both"]}}
+                for m in ["continuity-llm", "continuity-both", "all-llm", "all-both",
+                          "continuity-vit", "continuity-vit-both", "all-vit", "all-vit-both"]}}
 for _sfx, _path in _ELVIS_CP.items():
     for _tag, _temp in [("t0p-cp", 0.0), ("t07-cp", 0.7)]:
         qwen3vl_series[f"Qwen3-VL-4B-Instruct{_sfx}-{_tag}"] = partial(
