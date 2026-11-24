@@ -2839,7 +2839,7 @@ for group in interns1_groups:
 # Like the -t0p / -t07 entries above, but with Qwen's own MCQ prompt and a 200-token cap
 # (use_custom_prompt=True -> "Answer with the option letter only.", vlm/qwen3_vl/prompt.py).
 # Creates keys Qwen3-VL-4B-Instruct[-v3-<m>-e3]-{t0p,t07}-cp for base + 8 v3 models. max_new_tokens=200 (letter-only answers),
-# plus 10 seed keys per model ...-t07-cp-s0..s9 (T0.7 with vLLM seed 0..9).
+# plus 10 seed keys per model ...-t07-cp-s0..s9 (T0.7 with vLLM seed 0..9) and ...-t0p-cp-r224 (images <= 224x224).
 _ELVIS_CP = {"": "Qwen/Qwen3-VL-4B-Instruct",
              **{f"-v3-{m}-e3": f"/scratch/merc0606/fine-tuning-ELVIS/results/merged/v3-{m}-e3"
                 for m in ["continuity-llm", "continuity-both", "all-llm", "all-both",
@@ -2850,6 +2850,12 @@ for _sfx, _path in _ELVIS_CP.items():
             vlm.Qwen3VLChat, model_path=_path, use_custom_prompt=True, use_vllm=True,
             max_new_tokens=200, temperature=_temp, repetition_penalty=1.0,
             presence_penalty=1.5, top_p=0.8, top_k=20)
+    # Resolution test: same as -t0p-cp but every image capped at 224x224 pixels (<= 49 visual tokens, the size
+    # of the ELVIS fine-tuning images; aspect ratio kept). Key ...-t0p-cp-r224.
+    qwen3vl_series[f"Qwen3-VL-4B-Instruct{_sfx}-t0p-cp-r224"] = partial(
+        vlm.Qwen3VLChat, model_path=_path, use_custom_prompt=True, use_vllm=True,
+        max_new_tokens=200, temperature=0.0, repetition_penalty=1.0,
+        presence_penalty=1.5, top_p=0.8, top_k=20, max_pixels=224 * 224)
     # Seed runs: same as -t07-cp but with vLLM seed s (keys ...-t07-cp-s0 .. -s9), to measure decoding spread.
     for _seed in range(10):
         qwen3vl_series[f"Qwen3-VL-4B-Instruct{_sfx}-t07-cp-s{_seed}"] = partial(
