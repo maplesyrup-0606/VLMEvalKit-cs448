@@ -176,8 +176,15 @@ class ImageBaseDataset(metaclass=ABCMeta):
             paths = [toliststr(x) for x in data['image_path']]
             data['image_path'] = [x[0] if len(x) == 1 else x for x in paths]
 
-        if np.all([istype(x, int) for x in data['index']]):
+        # Only plain-digit indices become int. istype() uses eval(), and Python reads '1_10' and '11_0'
+        # both as 110, which silently merged 3,099 SEEDBench2 question pairs (one never asked, one key).
+        if np.all([isinstance(x, int) or (isinstance(x, str) and x.lstrip('-').isdigit())
+                   for x in data['index']]):
             data['index'] = [int(x) for x in data['index']]
+        n_dup = len(data) - len(set(data['index']))
+        if n_dup:
+            import warnings
+            warnings.warn(f'{dataset}: {n_dup} duplicated question indices; answers will be shared')
 
         self.data = data
         self.post_build(dataset)

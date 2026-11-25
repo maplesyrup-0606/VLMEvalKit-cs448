@@ -74,6 +74,9 @@ class ImageMCQDataset(ImageBaseDataset):
         'SEEDBench_IMG': 'https://opencompass.openxlab.space/utils/benchmarks/SEEDBench/SEEDBench_IMG.tsv',
         'SEEDBench_IMG_KO': 'https://huggingface.co/datasets/NCSOFT/K-SEED/resolve/main/SEEDBench_IMG_KO.tsv',
         'SEEDBench2': 'https://huggingface.co/datasets/VLMEval/SEEDBench2/resolve/main/SEEDBench2.tsv',
+        # Same file as SEEDBench2 (symlink SEEDBench2_Fix[_local].tsv in LMUData); separate name so results
+        # with the fixed index handling (image_base.py) don't mix with the old, collided ones.
+        'SEEDBench2_Fix': 'https://huggingface.co/datasets/VLMEval/SEEDBench2/resolve/main/SEEDBench2.tsv',
         'SEEDBench2_Plus': 'https://opencompass.openxlab.space/utils/benchmarks/SEEDBench/SEEDBench2_Plus.tsv',
         # ScienceQA Series
         'ScienceQA_VAL': 'https://opencompass.openxlab.space/utils/benchmarks/ScienceQA/ScienceQA_VAL.tsv',
@@ -155,6 +158,7 @@ class ImageMCQDataset(ImageBaseDataset):
         'SEEDBench_IMG': '68017231464752261a2526d6ca3a10c0',
         'SEEDBench_IMG_KO': 'b354a9ac3493f3ccf294e69b216bfab3',
         'SEEDBench2': '4ec15cf864c4f16274112284f531813e',
+        'SEEDBench2_Fix': '4ec15cf864c4f16274112284f531813e',
         'SEEDBench2_Plus': 'e32d3216dc4f452b0fe497a52015d1fd',
         # ScienceQA
         'ScienceQA_VAL': '96320d05e142e585e7204e72affd29f3',
